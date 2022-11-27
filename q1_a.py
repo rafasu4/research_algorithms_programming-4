@@ -38,7 +38,7 @@ class bounded_subsets:
         self.subsets = [[]]
         # enlist all given numbers in the list under the constraint
         for num in s:
-            if num < c:
+            if num <= c:
                 current_list = [num]
                 self.subsets.append(current_list)
         self.create_subsets(self.subsets)
@@ -79,4 +79,6 @@ class bounded_subsets:
 
 
 if __name__ == '__main__':
-    doctest.testmod()
+    # doctest.testmod()
+    for s in bounded_subsets([1, 3, 2, 4], 4):
+        print(s, end=' ')
