@@ -79,6 +79,4 @@ class bounded_subsets:
 
 
 if __name__ == '__main__':
-    # doctest.testmod()
-    for s in bounded_subsets([1, 3, 2, 4], 4):
-        print(s, end=' ')
+    doctest.testmod()
