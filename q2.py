@@ -1,5 +1,6 @@
 from typing import Callable
 from enum import Enum
+import doctest
 
 
 class OutputType(Enum):
@@ -13,6 +14,22 @@ class OutputType(Enum):
 class Graph:
     '''
         A class represents Graph
+
+        ----------------------------------------------------------------------TESTS----------------------------------------------------------------------
+        >>> my_graph = Graph(5)
+        >>> my_graph.add_edge(1, 0)
+        >>> my_graph.add_edge(2, 3)
+        >>> my_graph.add_edge(3, 0)
+        >>> print (my_graph.connected_components(my_graph.bfs_Utility, OutputType.CONNECTED_COMPONENTS))
+        [[0, 1, 2, 3], [4]]
+        >>> print(my_graph.connected_components(my_graph.dfs_utility, OutputType.SIZE))
+        [1, 4]
+        >>> my_graph.add_edge(0, 4)
+        >>> print (my_graph.connected_components(my_graph.bfs_Utility, OutputType.CONNECTED_COMPONENTS))
+        [[0, 1, 2, 3, 4]]
+        >>> print(my_graph.connected_components(my_graph.dfs_utility, OutputType.SIZE))
+        [5]
+        
     '''
     def __init__(self, V):
         self.V = V
@@ -63,20 +80,13 @@ class Graph:
         for v in range(self.V):
             if visited[v] == False:
                 con_component.append(algorithm(v, visited))
-        return [len(x) for x in con_component] if output_type == OutputType.SIZE else con_component 
+        sum = []
+        for component in con_component:
+            component.sort()
+            sum.append(len(component))
+        sum.sort()
+        return sum if output_type == OutputType.SIZE else con_component
 
 
 if __name__ == '__main__':
-    my_instance = Graph(5)
-    my_instance.add_edge(1, 0)
-    my_instance.add_edge(2, 3)
-    my_instance.add_edge(3, 0)
-    print("1-->0")
-    print("2-->3")
-    print("3-->0")
-    conn_comp = my_instance.connected_components(my_instance.dfs_utility, OutputType.SIZE)
-    conn = my_instance.connected_components(my_instance.bfs_Utility, OutputType.CONNECTED_COMPONENTS)
-    print("The connected components are :")
-    print(conn_comp)
-    print("The connected components are :")
-    print(conn)
+     doctest.testmod()
